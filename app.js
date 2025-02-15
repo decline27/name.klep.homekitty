@@ -289,8 +289,8 @@ module.exports = class HomeKitty extends Homey.App {
   }
 
   generateBridgePort() {
-    // combination of IANA and Linux ranges: 49152 to 60999
-    return 49152 + (0 | Math.random() * 11847);
+    // Use a different port range for development version: 60000 to 61999
+    return 60000 + (0 | Math.random() * 1999);
   }
 
   async mapDevices() {
