@@ -9,6 +9,9 @@
   },
   "dependencies": {
     "debounce": "^1.2.1",
-    "require-all": "^3.0.0"
+    "require-all": "^3.0.0",
+    "hap-nodejs": "^0.11.0",
+    "fluent-ffmpeg": "^2.1.2",
+    "ffmpeg-static": "^5.2.0"
   }
 }
