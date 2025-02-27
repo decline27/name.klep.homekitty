@@ -5,10 +5,17 @@
   "devDependencies": {
     "@tsconfig/node12": "^1.0.11",
     "@types/homey": "npm:homey-apps-sdk-v3-types@^0.3.1",
-    "@types/node": "^18.11.9"
+    "@types/node": "^18.11.9",
+    "chai": "^4.3.4",
+    "mocha": "^9.1.3",
+    "sinon": "^11.1.2"
   },
   "dependencies": {
     "debounce": "^1.2.1",
     "require-all": "^3.0.0"
+  },
+  "scripts": {
+    "test": "mocha --recursive test/**/*.js",
+    "test:watch": "mocha --watch --recursive test/**/*.js"
   }
 }
