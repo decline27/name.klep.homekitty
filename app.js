@@ -5,6 +5,7 @@ const debounce                      = require('debounce');
 const Homey                         = require('homey');
 const Constants                     = require('./constants');
 const DeviceMapper                  = require('./lib/device-mapper');
+const Logger                        = require('./lib/logger');  // Import the custom logger
 const { HomeyAPI }                  = require('./modules/homey-api');
 const {
   Bridge, Service, Characteristic,
@@ -32,7 +33,38 @@ module.exports = class HomeKitty extends Homey.App {
   #bridgeStarted = defer();
   #exposed       = null;
 
+  // Override Homey's default logging methods to use our custom logger
+  log(...args) {
+    Logger.info(...args);
+  }
+
+  error(...args) {
+    Logger.error(...args);
+  }
+  
+  debug(...args) {
+    Logger.debug(...args);
+  }
+  
+  warn(...args) {
+    Logger.warn(...args);
+  }
+
   async onInit() {
+    // Add global unhandled promise rejection handler
+    process.on('unhandledRejection', (reason, promise) => {
+      // Check if it's an API timeout error
+      if (reason && reason.message && reason.message.includes('Failed to subscribe to homey:device:')) {
+        this.warn('API subscription timeout:', reason.message);
+        this.debug('This is a known issue with device subscriptions and can be safely ignored.');
+        // No need to crash the app for subscription timeouts
+        return;
+      }
+      
+      // For other unhandled rejections, log them as errors
+      this.error('Unhandled Promise Rejection:', reason);
+    });
+
     this.log('');
     this.log(`🐈🏠 ✧･ﾟ: *✧･ﾟWᴇʟᴄᴏᴍᴇ ᴛᴏ HᴏᴍᴇKɪᴛᴛʏ v${ this.manifest.version } ﾟ･✧*:･ﾟ✧ 🏠🐈`);
     this.log('');

@@ -1,5 +1,5 @@
 {
-  "id": "name.klep.homekitty",
+  "id": "name.klep.homekitty_dev",
   "version": "2.3.5",
   "compatibility": ">=8.1.1",
   "sdk": 3,
@@ -12,7 +12,7 @@
     "local"
   ],
   "name": {
-    "en": "HomeKitty"
+    "en": "HomeKitty_dev"
   },
   "description": {
     "en": "Control your Homey devices with iOS and Siri",
